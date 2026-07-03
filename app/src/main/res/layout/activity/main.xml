@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="#0f0f23">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FLIXTOR"
+        android:textSize="42sp"
+        android:textColor="#ff2e63"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        android:layout_marginBottom="64dp"/>
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="Username"
+        android:textColor="#fff"
+        android:textColorHint="#888"
+        android:background="#1a1a2e"
+        android:paddingHorizontal="20dp"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#fff"
+        android:textColorHint="#888"
+        android:background="#1a1a2e"
+        android:paddingHorizontal="20dp"
+        android:layout_marginBottom="32dp"/>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="LOGIN"
+        android:backgroundTint="#ff2e63"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+</LinearLayout>
