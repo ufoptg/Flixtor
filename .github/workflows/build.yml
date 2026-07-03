@@ -7,10 +7,13 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
 
@@ -21,20 +24,29 @@ jobs:
         distribution: 'temurin'
 
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v4
+      uses: android-actions/setup-android@v3
 
-    - name: Setup Gradle
+    - name: Install Gradle
       uses: gradle/actions/setup-gradle@v4
+      with:
+        gradle-version: "8.7"
 
-    - name: Make gradlew executable
+    - name: Purge stale duplicate sources
       run: |
-        if [ -f "gradlew" ]; then
-          chmod +x gradlew
-          echo "gradlew found and made executable."
-        else
-          echo "::error::gradlew wrapper not found. Please run 'gradle wrapper' locally and commit the files."
-          exit 1
+        rm -rf app/src/main/res/layout/activity
+        rm -rf app/src/main/java/com/flixtor
+        echo "Cleaned. Current sources:"
+        find app/src/main/java -name "*.kt"
+        find app/src/main/res/layout -type f
+
+    - name: Ensure Gradle wrapper exists
+      run: |
+        if [ ! -f "gradlew" ]; then
+          echo "gradlew missing – generating wrapper..."
+          gradle wrapper --gradle-version 8.7 --distribution-type bin
         fi
+        chmod +x gradlew
+        ls -la gradlew gradle/wrapper/
 
     - name: Build Debug APK
       run: ./gradlew assembleDebug --no-daemon --stacktrace
